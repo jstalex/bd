@@ -1,58 +1,40 @@
+UPDATE car_service AS cs
+SET w_name = cs1.w_name
+FROM (
+    SELECT DISTINCT w_name, w_phone
+    FROM car_service
+    WHERE w_name IS NOT NULL AND w_phone IS NOT NULL
+) AS cs1
+WHERE cs.w_phone = cs1.w_phone;
 
 UPDATE car_service AS cs
-SET w_name=cs1.w_name
+SET w_exp = cs1.w_exp
 FROM (
-  SELECT
-  	DISTINCT w_name, w_phone
-  FROM car_service
-  WHERE
-  	w_name IS NOT NULL AND
-  	w_phone IS NOT NULL
-  	) AS cs1
-WHERE cs.w_phone=cs1.w_phone;
+    SELECT DISTINCT w_exp, w_phone
+    FROM car_service
+    WHERE w_phone IS NOT NULL AND w_exp IS NOT NULL
+) AS cs1
+WHERE cs.w_phone = cs1.w_phone;
 
 UPDATE car_service AS cs
-SET w_exp=cs1.w_exp
+SET wages = cs1.wages
 FROM (
-  SELECT
-  	DISTINCT w_exp, w_phone
-  FROM car_service
-  WHERE
-  	w_phone IS NOT NULL AND
-  	w_exp IS NOT NULL
-  	) AS cs1
-WHERE cs.w_phone=cs1.w_phone;
+    SELECT DISTINCT wages, w_phone
+    FROM car_service
+    WHERE w_phone IS NOT NULL AND wages IS NOT NULL
+) AS cs1
+WHERE cs.w_phone = cs1.w_phone;
 
 UPDATE car_service AS cs
-SET wages=cs1.wages
+SET w_phone = cs1.w_phone
 FROM (
-  SELECT
-  	DISTINCT wages, w_phone
-  FROM car_service
-  WHERE
-  	w_phone IS NOT NULL AND
-  	wages IS NOT NULL
-  	) AS cs1
-WHERE cs.w_phone=cs1.w_phone;
+    SELECT DISTINCT wages, w_phone
+    FROM car_service
+    WHERE w_name IS NOT NULL AND w_exp IS NOT NULL AND wages IS NOT NULL AND w_phone IS NOT NULL
+) AS cs1
+WHERE cs.w_name = cs1.w_name AND cs.w_exp = cs1.w_exp AND cs.wages = cs1.wages;
 
-UPDATE car_service AS cs
-SET w_phone=cs1.w_phone
-FROM (
-  SELECT
-  	DISTINCT wages, w_phone
-  FROM car_service
-  WHERE
-  	w_name IS NOT NULL AND
-    w_exp IS NOT NULL AND
-    wages IS NOT NULL AND
-  	w_phone IS NOT NULL
-  	) AS cs1
-WHERE 
-cs.w_name=cs1.w_name AND
-cs.w_exp=cs1.w_exp AND
-cs.wages=cs1.wages;
-
-CREATE TABLE workers AS 
+CREATE TABLE workers AS
 SELECT DISTINCT 
     w_phone AS phone,
     SPLIT_PART(w_name, ' ', 1) AS first_name,

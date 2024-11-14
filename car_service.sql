@@ -1,3 +1,5 @@
+-- Сюда загружал исходные данные
+
 CREATE TABLE car_service (
     date DATE,
     service TEXT,

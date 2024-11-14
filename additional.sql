@@ -1,3 +1,5 @@
+-- Дополнительные задания
+
 -- 1
 CREATE TABLE discounts (
     discount_id SERIAL PRIMARY KEY,
@@ -45,12 +47,12 @@ SELECT
 FROM 
     orders o
 JOIN 
-    services s using(service_id)
+    services s USING(service_id)
 JOIN 
-    workers w using(worker_id)
+    workers w USING(worker_id)
 WHERE 
     o.date >= (SELECT MAX(date) FROM orders) - INTERVAL '1 month'
-    AND o.date < (SELECT MAX(date) FROM orders) and payment is not null 
+    AND o.date < (SELECT MAX(date) FROM orders) and payment IS NOT NULL
 GROUP BY 
  	s.service, s.service_addr;
 
@@ -64,7 +66,7 @@ SELECT
 FROM
     cars c
 JOIN
-    orders o using(car_id)
+    orders o USING(car_id)
 WHERE 
     payment IS NOT NULL
 GROUP BY
@@ -81,7 +83,7 @@ SELECT
 FROM
     cars c
 JOIN
-    orders o using(car_id)
+    orders o USING(car_id)
 WHERE 
     payment IS NOT NULL
 GROUP BY
@@ -122,4 +124,4 @@ FROM
 JOIN
     MinOrderCounts moc ON coc.car = moc.car AND 
     coc.order_count = moc.min_order_count;
-    order by car
+    ORDER BY car
