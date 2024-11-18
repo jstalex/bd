@@ -28,7 +28,7 @@ WHERE cs.w_phone = cs1.w_phone;
 UPDATE car_service AS cs
 SET w_phone = cs1.w_phone
 FROM (
-    SELECT DISTINCT wages, w_phone
+    SELECT DISTINCT wages, w_phone, w_name, w_exp
     FROM car_service
     WHERE w_name IS NOT NULL AND w_exp IS NOT NULL AND wages IS NOT NULL AND w_phone IS NOT NULL
 ) AS cs1
